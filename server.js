@@ -7,6 +7,7 @@ const createAdapter = require("@socket.io/redis-adapter").createAdapter;
 const redis = require("redis");
 require("dotenv").config();
 const { createClient } = redis;
+const cors = require("cors")
 const {
   userJoin,
   getCurrentUser,
@@ -19,6 +20,11 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 // Set static folder
+app.use(cors({
+  origin: " https://9000-2409-4081-2c96-197d-4454-8cb8-6a2a-f69a.ngrok-free.app", // Update with your latest Ngrok URL
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.static(path.join(__dirname, "public")));
 
 const botName = "ChatCord Bot";
