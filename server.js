@@ -23,11 +23,24 @@ const io = socketio(server);
 
 // Set static folder
 app.use(cors({
-  origin: "https://1c97-2409-4081-2c96-197d-4454-8cb8-6a2a-f69a.ngrok-free.app",
+  origin: ["http://localhost:3000", "https://acc0-2409-4081-2c96-197d-4454-8cb8-6a2a-f69a.ngrok-free.app"],
   methods: ["GET", "POST"],
   credentials: true
 }));
+
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/", (req, res) => {
+  res.send("Backend is running! Use the correct frontend URL.");
+});
+app.get("/chat-url", (req, res) => {
+  res.json({ url: "https://acc0-2409-4081-2c96-197d-4454-8cb8-6a2a-f69a.ngrok-free.app" });
+});
+// Serve React frontend
+// app.use(express.static(path.join(__dirname, "../frontend/dist"))); // Adjust path if needed
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
+// });
 
 const botName = "ChatCord Bot";
 
@@ -89,7 +102,8 @@ io.on("connection", (socket) => {
     }
   });
 });
+// Serve React frontend
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
 
