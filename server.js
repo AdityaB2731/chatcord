@@ -17,11 +17,13 @@ const {
 
 const app = express();
 const server = http.createServer(app);
+// server.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
+
 const io = socketio(server);
 
 // Set static folder
 app.use(cors({
-  origin: " https://9000-2409-4081-2c96-197d-4454-8cb8-6a2a-f69a.ngrok-free.app", // Update with your latest Ngrok URL
+  origin: "https://1c97-2409-4081-2c96-197d-4454-8cb8-6a2a-f69a.ngrok-free.app",
   methods: ["GET", "POST"],
   credentials: true
 }));
@@ -88,6 +90,6 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
